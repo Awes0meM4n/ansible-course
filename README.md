@@ -62,7 +62,7 @@ When the cluster is created, we can access to the instances using Vagrant CLI:
 
 ```
 $ vagrant ssh bt
-$ vagrant ssh server-1
-$ vagrant ssh server-2
-$ vagrant ssh server-3
+$ vagrant ssh server1
+$ vagrant ssh server2
+$ vagrant ssh server3
 ```
