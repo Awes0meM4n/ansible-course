@@ -1,0 +1,13 @@
+---
+- name: bt
+  mem: 2048
+  cpu: 2
+- name: server1
+  mem: 1024
+  cpu: 1
+- name: server2
+  mem: 1024
+  cpu: 1
+- name: server3
+  mem: 1024
+  cpu: 1
