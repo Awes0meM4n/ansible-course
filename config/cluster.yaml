@@ -1,13 +1,17 @@
 ---
-- name: bt
-  mem: 2048
-  cpu: 2
+#- name: bt
+#  mem: 2048
+#  cpu: 2
+#  ip: 192.168.50.10
 - name: server1
   mem: 1024
   cpu: 1
+  ip: 192.168.50.11
 - name: server2
   mem: 1024
   cpu: 1
+  ip: 192.168.50.12
 - name: server3
   mem: 1024
   cpu: 1
+  ip: 192.168.50.13

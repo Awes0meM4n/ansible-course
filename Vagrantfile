@@ -37,7 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node.vm.box_version = "1710.01"
       node.vm.hostname = servers["name"]
 
-      node.vm.network "public_network"
+      node.vm.network "private_network", ip: servers["ip"]
 
       # TODO: synced folder configurable with env variable
       if node.vm.hostname == 'bt'
