@@ -61,7 +61,6 @@ Vagrant will ask which interface you want yout VMs to brifge to. Please select t
 When the cluster is created, we can access to the instances using Vagrant CLI:
 
 ```
-$ vagrant ssh bt
 $ vagrant ssh server1
 $ vagrant ssh server2
 $ vagrant ssh server3
