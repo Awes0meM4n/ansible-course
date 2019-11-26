@@ -46,18 +46,6 @@ After the box is downloaded, we can create the cluster environment using Vagrant
 $ vagrant up
 ```
 
-Vagrant will ask which interface you want yout VMs to brifge to. Please select the one you currently use to connect to the Internet:
-
-```
-==> bt: Available bridged network interfaces:
-1) enp2s0
-2) docker0
-3) virbr0
-==> bt: When choosing an interface, it is usually the one that is
-==> bt: being used to connect to the internet.
-    bt: Which interface should the network bridge to? 1
-```
-
 When the cluster is created, we can access to the instances using Vagrant CLI:
 
 ```
