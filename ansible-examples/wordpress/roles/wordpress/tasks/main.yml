@@ -39,7 +39,7 @@
 
 - name: Copy WordPress config file
   template:
-    src: wp-config.php
+    src: wp-config.php.j2
     dest: "{{ wp_install_dir_path }}/wp-config.php"
 
 - name: Ensure php-fpm service is started

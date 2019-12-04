@@ -11,7 +11,7 @@
 
 - name: Copy nginx configuration for wordpress
   template:
-    src: default.conf
+    src: default.conf.j2
     dest: "{{ nginx_conf_file_path }}"
   notify:
     - Restart nginx service
