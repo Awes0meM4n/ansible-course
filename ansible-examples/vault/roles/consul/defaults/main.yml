@@ -1,0 +1,14 @@
+---
+# Default vars
+consul_version: 1.6.2
+
+consul_group: consul
+consul_user: consul
+
+consul_home_dir: /opt/consul
+consul_install_dir: "{{ consul_home_dir }}/bin"
+consul_conf_dir: "{{ consul_home_dir }}/conf"
+consul_data_dir: "{{ consul_home_dir }}/data"
+
+consul_datacenter: "dc-ansible"
+consul_domain: "ansible.test.com"

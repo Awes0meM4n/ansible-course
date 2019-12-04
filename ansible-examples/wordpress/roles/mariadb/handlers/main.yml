@@ -1,0 +1,6 @@
+---
+# Handler to handle DB tier notifications
+- name: Restart MariaDB service
+  systemd:
+    name: mariadb
+    state: restarted

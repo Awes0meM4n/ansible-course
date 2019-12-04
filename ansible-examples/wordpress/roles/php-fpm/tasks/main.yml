@@ -1,0 +1,40 @@
+---
+- name: Install php-fpm and deps
+  package:
+    name:
+      - php
+      - php-fpm
+      - php-enchant
+      - php-IDNA_Convert
+      - php-mbstring
+      - php-mysql
+      - php-PHPMailer
+      - php-process
+      - php-simplepie
+      - php-xml
+    state: present
+
+- name: Check if default conf exists
+  stat:
+    path: "{{ php_default_conf_file_path }}"
+  register: php_default_conf_file_stat
+
+- name: Disable default conf if exists
+  command: "mv {{ php_default_conf_file_path }} {{ php_disabled_conf_file_path }}"
+  notify:
+    - Restart php-fpm service
+  when:
+    - php_default_conf_file_stat.stat.exists
+
+- name: Create wordpress install dir path if not exists
+  file:
+    path: "{{ wp_install_dir_path }}"
+    state: directory
+    mode: 0755
+
+- name: Render php-fpm Wordpress configuration
+  template:
+    src: wordpress.conf
+    dest: "{{ php_wp_conf_file_path }}"
+  notify:
+    - Restart php-fpm service

@@ -1,0 +1,52 @@
+---
+- name: Create consul group
+  group:
+    name: "{{ consul_group }}"
+
+- name: Create consul user
+  user:
+    name: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    home: "{{ consul_home_dir }}"
+    shell: /sbin/nologin
+
+- name: Check if consul directories exists
+  stat:
+    path: "{{ item }}"
+  register: consul_dirs_stat
+  loop:
+    - "{{ consul_home_dir }}"
+    - "{{ consul_install_dir }}"
+    - "{{ consul_conf_dir }}"
+    - "{{ consul_data_dir }}"
+
+- name: Create consul directories if not exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: '0755'
+  loop: "{{ consul_dirs_stat.results | rejectattr('stat.exists') | map(attribute='item') | list }}"
+
+- name: Ensure unzip is installed
+  yum:
+    name: unzip
+    state: present
+
+- name: "Extract consul binary in {{ consul_install_dir }}"
+  unarchive:
+    src: "consul-{{ consul_version }}.zip"
+    dest: "{{ consul_install_dir }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+
+- name: Render consul systemd unit
+  template:
+    src: consul.service.j2
+    dest: "/etc/systemd/system/consul.service"
+    owner: root
+    group: root 
+    mode: 644
+  notify:
+    - Restart consul service

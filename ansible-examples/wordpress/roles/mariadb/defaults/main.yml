@@ -1,0 +1,6 @@
+---
+# Default vars
+mysql_port: 3306
+
+mysql_conf_file_path: /etc/my.cnf
+mysql_log_file_path: /var/log/mysqld.log

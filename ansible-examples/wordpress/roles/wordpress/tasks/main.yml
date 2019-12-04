@@ -1,0 +1,49 @@
+---
+- name: Create wordpress group
+  group:
+    name: "{{ wp_group }}"
+
+- name: Create wordpress user
+  user:
+    name: "{{ wp_user }}"
+    group: "{{ wp_group }}"
+    home: "{{ wp_install_dir_path }}"
+    shell: /sbin/nologin
+
+- name: Extract WordPress
+  unarchive:
+    src: "wordpress-{{ wp_version }}.tar.gz"
+    dest: "{{ wp_install_dir_path | dirname }}"
+    owner: "{{ wp_user }}"
+    group: "{{ wp_group }}"
+
+- name: Fetch random salts for WordPress config
+  local_action:
+    module: uri
+    url: https://api.wordpress.org/secret-key/1.1/salt/
+    return_content: yes
+  register: wp_salt_url_response
+
+- name: Create WordPress database
+  mysql_db:
+    name: "{{ wp_db_name }}"
+    state: present
+
+- name: Create WordPress database user
+  mysql_user:
+    name: "{{ wp_db_user }}"
+    password: "{{ wp_db_password }}"
+    priv: "{{ wp_db_name }}.*:ALL"
+    host: 'localhost'
+    state: present
+
+- name: Copy WordPress config file
+  template:
+    src: wp-config.php
+    dest: "{{ wp_install_dir_path }}/wp-config.php"
+
+- name: Ensure php-fpm service is started
+  systemd:
+    name: php-fpm
+    state: started
+    enabled: yes

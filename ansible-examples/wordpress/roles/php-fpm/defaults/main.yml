@@ -1,0 +1,12 @@
+---
+# Default vars
+nginx_port: 80
+
+php_conf_dir_path: /etc/php-fpm.d
+php_default_conf_file_path: "{{ php_conf_dir_path }}/www.conf"
+php_disabled_conf_file_path: "{{ php_conf_dir_path }}/www.disabled"
+php_wp_conf_file_path: "{{ php_conf_dir_path }}/wordpress.conf"
+
+php_wp_chdir_path: /srv/wordpress/
+
+nginx_server_hostname: server.example.com

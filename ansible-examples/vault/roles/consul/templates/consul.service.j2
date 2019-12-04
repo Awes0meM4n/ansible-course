@@ -1,0 +1,17 @@
+[Unit]
+Description=Consul Agent
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+User={{ consul_user }}
+Group={{ consul_group }}
+ExecStart={{ consul_install_dir }}/consul agent -config-dir {{ consul_conf_dir }}
+ExecReload={{ consul_install_dir }}/consul reload
+KillMode=process
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

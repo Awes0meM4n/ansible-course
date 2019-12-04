@@ -1,0 +1,7 @@
+[wordpress_servers]
+server1 ansible_host=192.168.50.11
+server2 ansible_host=192.168.50.12
+
+# Variables listed here are applicable to wordpress_servers hosts group
+[wordpress_servers:vars]
+wp_install_dir_path=/srv/wordpress

@@ -1,0 +1,10 @@
+---
+- name: Import install.yml
+  import_tasks: install.yml
+  tags:
+    - install-consul
+
+- name: Import configure.yml
+  import_tasks: configure.yml
+  tags:
+    - configure-consul

@@ -1,0 +1,52 @@
+---
+- name: Create vault group
+  group:
+    name: "{{ vault_group }}"
+
+- name: Create vault user
+  user:
+    name: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    home: "{{ vault_home_dir }}"
+    shell: /sbin/nologin
+
+- name: Check if vault directories exists
+  stat:
+    path: "{{ item }}"
+  register: vault_dirs_stat
+  loop:
+    - "{{ vault_home_dir }}"
+    - "{{ vault_install_dir }}"
+    - "{{ vault_conf_dir }}"
+    - "{{ vault_pid_dir }}"
+
+- name: Create vault directories if not exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: '0755'
+  loop: "{{ vault_dirs_stat.results | rejectattr('stat.exists') | map(attribute='item') | list }}"
+
+- name: Ensure unzip is installed
+  yum:
+    name: unzip
+    state: present
+
+- name: "Extract vault binary in {{ vault_install_dir }}"
+  unarchive:
+    src: "vault-{{ vault_version }}.zip"
+    dest: "{{ vault_install_dir }}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+
+- name: Render vault systemd unit
+  template:
+    src: vault.service.j2
+    dest: "/etc/systemd/system/vault.service"
+    owner: root
+    group: root 
+    mode: 644
+  notify:
+    - Restart vault service

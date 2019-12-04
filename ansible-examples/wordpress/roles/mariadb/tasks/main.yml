@@ -1,0 +1,42 @@
+---
+# This playbook will install MariaDB and create db user and give permissions.
+- name: Install MariaDB package
+  package:
+    name:
+      - mariadb-server
+      - MySQL-python
+      - libselinux-python
+      - libsemanage-python   
+    state: present
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: Create Mysql configuration file
+  template:
+    src: my.cnf.j2
+    dest: "{{ mysql_conf_file_path }}"
+  notify:
+    - Restart MariaDB service
+
+- name: Check if MariaDB log file exists
+  stat:
+    path: "{{ mysql_log_file_path }}"
+  register: mysql_log_file_stat
+
+- name: Create MariaDB log file if not exists
+  file:
+    path: "{{ mysql_log_file_path }}"
+    state: touch
+    owner: mysql
+    group: mysql
+    mode: 0775
+  when:
+    - not mysql_log_file_stat.stat.exists
+
+- name: Start MariaDB Service
+  service:
+    name: mariadb
+    state: started
+    enabled: yes

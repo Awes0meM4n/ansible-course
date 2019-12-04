@@ -1,0 +1,27 @@
+[Unit]
+Description=Vault secret management tool
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+User={{ vault_user }}
+Group={{ vault_group }}
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=read-only
+SecureBits=keep-caps
+Capabilities=CAP_IPC_LOCK+ep
+CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
+NoNewPrivileges=yes
+PIDFile=/var/run/vault/vault.pid
+ExecStart={{ vault_install_dir }}/vault server -config={{ vault_conf_dir }}/vault_server.hcl
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+KillSignal=SIGTERM
+Restart=on-failure
+RestartSec=42s
+LimitMEMLOCK=infinity
+
+[Install]
+WantedBy=multi-user.target

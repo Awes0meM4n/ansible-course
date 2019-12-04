@@ -1,0 +1,18 @@
+---
+- hosts: consul
+  become: yes
+  tasks:
+    - name: Import consul role
+      import_role:
+        name: consul
+      tags:
+        - consul
+
+- hosts: vault
+  become: yes
+  tasks:
+    - name: Import vault role
+      import_role:
+        name: vault
+      tags:
+        - vault

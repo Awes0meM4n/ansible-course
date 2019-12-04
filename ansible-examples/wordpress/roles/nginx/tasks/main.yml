@@ -1,0 +1,23 @@
+---
+- name: Install epel-release
+  package:
+    name: epel-release
+    state: present
+
+- name: Install nginx
+  package:
+    name: nginx
+    state: present
+
+- name: Copy nginx configuration for wordpress
+  template:
+    src: default.conf
+    dest: "{{ nginx_conf_file_path }}"
+  notify:
+    - Restart nginx service
+
+- name: Start nginx service
+  service:
+    name: nginx
+    state: started
+    enabled: yes

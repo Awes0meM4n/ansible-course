@@ -1,0 +1,14 @@
+{
+  "advertise_addr": "{{ ansible_eth1.ipv4.address }}",
+  "datacenter": "{{ consul_datacenter }}",
+  "data_dir": "{{ consul_home_dir }}",
+  "retry_join": {{ groups["consul_server"] | map('extract', hostvars, ['ansible_eth1', 'ipv4', 'address']) | list | to_json }},
+{% if inventory_hostname in groups["consul_server"] %}
+  "server": true,
+  "bootstrap_expect": {{ groups["consul_server"] | length }},
+{% else %}
+  "server": false,
+{% endif %}
+  "domain": "{{ consul_domain }}",
+  "data_dir": "{{ consul_data_dir }}"
+}

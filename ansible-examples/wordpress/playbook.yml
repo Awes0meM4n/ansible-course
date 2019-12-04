@@ -1,0 +1,27 @@
+---
+- hosts: wordpress_servers
+  become: yes
+  tasks:
+    - name: Import mariadb role
+      import_role:
+        name: mariadb
+      tags:
+        - mariadb
+
+    - name: Import nginx role
+      import_role:
+        name: nginx
+      tags:
+        - nginx
+
+    - name: Import php-fpm role
+      import_role:
+        name: php-fpm
+      tags:
+        - php-fpm
+
+    - name: Import wordpress role
+      import_role:
+        name: wordpress
+      tags:
+        - wordpress
