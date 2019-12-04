@@ -15,7 +15,7 @@
 
 - name: Create Mysql configuration file
   template:
-    src: my.cnf.j2
+    src: my.cnf
     dest: "{{ mysql_conf_file_path }}"
   notify:
     - Restart MariaDB service
@@ -31,9 +31,9 @@
     state: touch
     owner: mysql
     group: mysql
-    mode: 0775
+    mode: 775
   when:
-    - not mysql_log_file_stat.stat.exists
+    - not mysql_log_file_stat.stat.exist
 
 - name: Start MariaDB Service
   service:

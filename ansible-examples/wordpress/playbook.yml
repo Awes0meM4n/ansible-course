@@ -1,9 +1,9 @@
 ---
-- hosts: wordpress_servers
+- hosts: wordpres_servers
   become: yes
   tasks:
     - name: Import mariadb role
-      import_role:
+      import_task:
         name: mariadb
       tags:
         - mariadb
@@ -16,7 +16,7 @@
 
     - name: Import php-fpm role
       import_role:
-        name: php-fpm
+        name: phpfpm
       tags:
         - php-fpm
 

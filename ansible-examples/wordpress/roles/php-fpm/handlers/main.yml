@@ -1,5 +1,5 @@
 ---
 - name: Restart php-fpm service
-  systemd:
+  systemctl:
     name: php-fpm
     state: restarted

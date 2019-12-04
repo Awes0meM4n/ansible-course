@@ -10,7 +10,7 @@
     state: present
 
 - name: Copy nginx configuration for wordpress
-  template:
+  file:
     src: default.conf.j2
     dest: "{{ nginx_conf_file_path }}"
   notify:
