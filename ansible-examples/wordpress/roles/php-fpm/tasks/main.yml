@@ -34,7 +34,7 @@
 
 - name: Render php-fpm Wordpress configuration
   template:
-    src: wordpress.conf
+    src: wordpress.conf.j2
     dest: "{{ php_wp_conf_file_path }}"
   notify:
     - Restart php-fpm service
