@@ -1,0 +1,18 @@
+---
+- hosts: dev
+  vars:
+    url_to_get: https://www.google.es
+  become: yes
+  tasks:
+    - name: "Get {{ url_to_get }} response"
+      uri:
+        url: "{{ url_to_get }}"
+      register: uri_response
+
+    - name: "Debug {{ uri_response }} status"
+      debug:
+        var: uri_response["status"]
+
+    - name: "Debug {{ uri_response }} status again"
+      debug:
+        var: uri_response.status

@@ -1,0 +1,8 @@
+---
+- hosts: test
+  become: yes
+  tasks:
+    - name: Download https://google.es
+      get_url:
+        url: https://google.es
+        dest: /tmp/download.conf

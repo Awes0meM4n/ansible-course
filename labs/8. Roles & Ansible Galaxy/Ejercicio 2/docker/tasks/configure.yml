@@ -1,0 +1,11 @@
+---
+- name: Render docker configuration
+  template:
+    src: daemon.json.j2
+    dest: "{{ docker_daemon_config_path }}"
+
+- name: Start docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes

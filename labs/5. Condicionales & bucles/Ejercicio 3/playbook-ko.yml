@@ -1,0 +1,10 @@
+---
+- hosts: dev
+  become: yes
+  tasks:
+    - name: Install packages
+      yum:
+        name:
+          - epel-release
+          - python-pip
+        state: present

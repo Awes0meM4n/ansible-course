@@ -1,0 +1,8 @@
+---
+- hosts: test
+  become: yes
+  tasks:
+    - name: Install net-tools package
+      yum:
+        name: net-tools
+        state: absent

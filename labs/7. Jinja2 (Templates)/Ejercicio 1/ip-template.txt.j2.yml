@@ -1,0 +1,1 @@
+This is the template test file located in {{ ansible_hostname }} server

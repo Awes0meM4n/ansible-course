@@ -1,0 +1,16 @@
+---
+- hosts: test
+  vars:
+    test_conditional_file_path: /tmp/test-conditional.txt
+  become: yes
+  tasks:
+    - name: "Check if {{ test_conditional_file_path }} exists"
+      stat:
+        path: "{{ test_conditional_file_path }}"
+      register: test_conditional_file_stat
+
+    - name: "Debug {{ test_conditional_file_stat }}"
+      debug:
+        var: test_conditional_file_stat.stat.mode
+      when:
+        - test_conditional_file_stat.stat.exists

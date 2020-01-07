@@ -1,0 +1,13 @@
+---
+- hosts: dev
+  vars:
+    tmp_path: "/tmp"
+  tasks:
+    - name: Create files
+      file:
+        path: "{{ item }}"
+        state: touch
+      loop:
+        - "{{ tmp_path }}/test-loop-1.txt"
+        - "{{ tmp_path }}/test-loop-2.txt"
+        - "{{ tmp_path }}/test-loop-3.txt"

@@ -1,0 +1,30 @@
+---
+- hosts: dev
+  become: yes
+  vars:
+    cluster_config_file_name: cluster.yaml
+    cluster_config_source_path: "/vagrant/config/{{ cluster_config_file_name }}"
+    temporal_directory: /tmp
+    vagrant_user: vagrant
+    vagrant_group: vagrant
+    default_file_permissions: '0640'
+  tasks:
+    - name: "Copy {{ cluster_config_source_path }} to {{ temporal_directory }}/{{ cluster_config_file_name }}"
+      copy:
+        src: "{{ cluster_config_source_path }}"
+        dest: "{{ temporal_directory }}/{{ cluster_config_file_name }}"
+        owner: "{{ vagrant_user }}"
+        group: "{{ vagrant_group }}"
+        mode: "{{ default_file_permissions }}"
+
+    - name: Copy {{ cluster_config_source_path }} to {{ temporal_directory }}/{{ cluster_config_file_name }}.bkp
+      copy:
+        src: "{{ cluster_config_source_path }}"
+        dest: "{{ temporal_directory }}/{{ cluster_config_file_name }}.bkp"
+        owner: "{{ vagrant_user }}"
+        group: "{{ vagrant_group }}"
+        mode: "{{ default_file_permissions }}"
+
+    - name: "Obtain {{ temporal_directory }}/{{ cluster_config_file_name }} information"
+      stat:
+        path: "{{ temporal_directory }}/{{ cluster_config_file_name }}"

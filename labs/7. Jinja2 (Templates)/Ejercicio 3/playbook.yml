@@ -1,0 +1,12 @@
+---
+- hosts: all
+  vars:
+    template_servers_cores_path: ./servers-cores.txt.j2
+    file_servers_cores_path: /tmp/servers-cores.txt
+  become: yes
+  tasks:
+    - name: "Render {{ template_servers_cores_path }}"
+      template:
+        src: "{{ template_servers_cores_path }}" 
+        dest: "{{ file_servers_cores_path }}"
+        mode: '0640'

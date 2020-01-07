@@ -1,0 +1,13 @@
+---
+- hosts: dev
+  vars:
+    etc_hosts_path: /etc/hosts
+  become: yes
+  tasks:
+    - name: "Obtain {{ etc_hosts_path }}"
+      command: "cat {{ etc_hosts_path }}"
+      register: etc_hosts_response
+
+    - name: "Debug {{ etc_hosts_path }}"
+      debug:
+        var: etc_hosts_response

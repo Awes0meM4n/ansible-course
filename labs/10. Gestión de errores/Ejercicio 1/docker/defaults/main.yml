@@ -1,0 +1,7 @@
+---
+# Install
+docker_package_name: docker-force-fail
+
+# Configuration
+docker_daemon_config_path: /etc/docker/daemon.json
+docker_debug_enabled: false

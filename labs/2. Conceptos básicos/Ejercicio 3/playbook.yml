@@ -1,0 +1,14 @@
+---
+- hosts: dev
+  tasks:
+    - name: Create dev.txt file
+      file:
+        path: /home/vagrant/dev.txt
+        state: touch
+
+- hosts: test
+  tasks:
+    - name: Create test.txt file
+      file:
+        path: /home/vagrant/test.txt
+        state: touch

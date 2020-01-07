@@ -1,0 +1,11 @@
+---
+- hosts: dev
+  vars:
+    template_even_numbers_path: ./even-numbers.txt.j2
+    file_even_numbers_path: /tmp/even-numbers.txt
+  become: yes
+  tasks:
+    - name: "Render {{ template_even_numbers_path }}"
+      template:
+        src: "{{ template_even_numbers_path }}" 
+        dest: "{{ file_even_numbers_path }}"

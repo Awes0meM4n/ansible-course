@@ -1,0 +1,6 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Create module-command.txt file
+      command: touch /home/vagrant/module-command.txt

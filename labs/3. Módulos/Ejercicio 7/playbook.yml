@@ -1,0 +1,14 @@
+---
+- hosts: test
+  become: yes
+  tasks:
+    - name: Create ansible group
+      group:
+        name: ansible
+        state: present
+
+    - name: Create ansible user
+      user:
+          name: ansible
+          state: present
+          uid: 1050

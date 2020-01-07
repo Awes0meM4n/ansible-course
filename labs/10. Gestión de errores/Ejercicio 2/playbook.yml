@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  max_fail_percentage: 50
+  tasks:
+    - name: Obtain docker service status
+      command: "systemctl status docker"
+      register: docker_status
+      failed_when:
+        - docker_status.rc == 0
+
+    - name: Debug message
+      debug:
+        msg: "Docker is running in less than 50% of hosts"
+      run_once: true

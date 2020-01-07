@@ -1,0 +1,15 @@
+---
+- hosts: dev
+  become: yes
+  tasks:
+    - name: Copy /vagrant/config/cluster.yaml
+      copy:
+        src: /vagrant/config/cluster.yaml
+        dest: /tmp/cluster.yaml
+        owner: vagrant
+        group: vagrant
+        mode: '0640'
+
+    - name: Obtain /tmp/cluster.yaml information
+      stat:
+        path: /tmp/cluster.yaml

@@ -1,0 +1,7 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Import ntp role
+      import_role:
+        name: geerlingguy.ntp

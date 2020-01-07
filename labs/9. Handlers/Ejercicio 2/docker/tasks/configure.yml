@@ -1,0 +1,16 @@
+---
+- name: Render docker configuration
+  template:
+    src: daemon.json.j2
+    dest: "{{ docker_daemon_config_path }}"
+  notify:
+    - Restart docker service
+
+- name: Force all notified handlers to run at this point
+  meta: flush_handlers
+
+- name: Start docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes

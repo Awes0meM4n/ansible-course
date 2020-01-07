@@ -1,0 +1,14 @@
+---
+- hosts: dev
+  vars:
+    tmp_path: "/tmp"
+  tasks:
+    - name: Create files
+      file:
+        path: "{{ item.path }}"
+        mode: "{{ item.mode }}"
+        state: touch
+      loop:
+        - { path: "{{ tmp_path }}/test-loop-1.txt", mode: "0664" }
+        - { path: "{{ tmp_path }}/test-loop-2.txt", mode: "0640" }
+        - { path: "{{ tmp_path }}/test-loop-3.txt", mode: "0600" }

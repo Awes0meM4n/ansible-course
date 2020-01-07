@@ -1,0 +1,14 @@
+name: Unai
+surname: Arrien Oroz
+age: 29
+hobbies:
+  - Ansible
+  - YAML
+  - First Dates
+work_experience:
+  position_old:
+    company: Telefonica
+    position: Game Developer
+  position_new:
+    company: Stratio
+    position: DevOps Engineer

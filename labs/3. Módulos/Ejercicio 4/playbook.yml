@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install vim package
+      package:
+        name: vim
+        state: present
+
+    - name: Install net-tools package
+      yum:
+        name: net-tools
+        state: installed

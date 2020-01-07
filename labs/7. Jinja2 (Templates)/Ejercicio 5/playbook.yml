@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  vars:
+    test_url: "https://google.es"
+    url_secure_protocol: "https"
+  tasks:
+    - name: "Check if {{ template_even_numbers_path }} is secure"
+      debug:
+        msg: "{{ test_url }} is secure"
+      when:
+        - test_url | urlsplit('scheme') == url_secure_protocol
+
+    - name: "Check if {{ template_even_numbers_path }} is not secure"
+      debug:
+        msg: "{{ test_url }} is not secure"
+      when:
+        - test_url | urlsplit('scheme') != url_secure_protocol
+
+    - name: "Check {{ template_even_numbers_path }}"
+      debug:
+        msg: "{{ test_url }} is {% if test_url | urlsplit('scheme') != url_secure_protocol %}not {% endif %}secure"

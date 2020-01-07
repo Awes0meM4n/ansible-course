@@ -1,0 +1,9 @@
+#!/bin/bash
+# Launch ansible-console in all nodes
+ansible-console -b all
+# Obtain /tmp/ip-template.txt in all nodes
+cat /tmp/ip-template.txt
+# Delete /tmp/ip-template.txt in all nodes
+file path=/tmp/ip-template.txt state=absent
+# Obtain /tmp/ip-template.txt in deleted
+cat /tmp/ip-template.txt

@@ -1,0 +1,11 @@
+---
+- hosts: all
+  vars:
+    template_test_ip_path: ./ip-template.txt.j2
+    file_test_ip_path: /tmp/ip-template.txt
+  become: yes
+  tasks:
+    - name: "Render {{ template_test_ip_path }}"
+      template:
+        src: "{{ template_test_ip_path }}" 
+        dest: "{{ file_test_ip_path }}"

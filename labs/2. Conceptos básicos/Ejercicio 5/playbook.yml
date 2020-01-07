@@ -1,0 +1,16 @@
+---
+- hosts: dev
+  become: yes
+  tasks:
+    - name: Create dev.txt file
+      file:
+        path: /root/dev.txt
+        state: touch
+
+- hosts: test
+  become: yes
+  tasks:
+    - name: Create test.txt file
+      file:
+        path: /root/test.txt
+        state: touch

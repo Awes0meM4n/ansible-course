@@ -1,0 +1,6 @@
+---
+- name: Install docker
+  package:
+    name: "{{ docker_package_name }}"
+    state: present
+  ignore_errors: yes

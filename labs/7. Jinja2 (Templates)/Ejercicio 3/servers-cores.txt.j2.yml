@@ -1,0 +1,3 @@
+{% for server in groups['all'] %}
+The server {{ hostvars[server].ansible_hostname }} has {{ hostvars[server].ansible_processor_cores }} cores
+{% endfor %}

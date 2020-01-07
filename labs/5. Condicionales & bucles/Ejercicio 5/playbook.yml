@@ -1,0 +1,15 @@
+---
+- hosts: dev
+  tasks:
+    - name: Obtain release files content
+      command: "cat {{ item }}"
+      register: release_files_content
+      loop:
+        - "/etc/os-release"
+        - "/etc/centos-release"
+
+    - name: Print release files content
+      debug:
+        var: item.stdout
+      with_items:
+        - "{{ release_files_content.results }}"

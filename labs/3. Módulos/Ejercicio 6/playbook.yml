@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Install git
+      yum:
+        name: git
+        state: present
+
+    - name: Clone https://github.com/unai-ttxu/ansible-course repo
+      git:
+        repo: https://github.com/unai-ttxu/ansible-course
+        dest: /vagrant/ansible-course
