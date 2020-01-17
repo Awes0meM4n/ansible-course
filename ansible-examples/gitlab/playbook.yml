@@ -1,0 +1,9 @@
+---
+- hosts: gitlab_servers
+  become: yes
+  tasks:
+    - name: Import gitlab role
+      import_role:
+        name: gitlab
+      tags:
+        - gitlab
